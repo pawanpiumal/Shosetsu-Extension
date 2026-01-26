@@ -24,9 +24,7 @@ function defaults:getPassage(url)
 	-- Chapter title inserted before chapter text
 	htmlElement:prepend("<h1>" .. title .. "</h1>");
 
-	-- Remove/modify unwanted HTML elements to get a clean webpage.
 	htmlElement:select("a"):remove()
-	-- htmlElement:select("i.icon.j_open_para_comment.j_para_comment_count"):remove() -- BoxNovel, VipNovel numbers
 
 	return pageOfElem(htmlElement, true, self.customStyle)
 end
@@ -59,9 +57,7 @@ function defaults:parseNovel(url, loadChapters)
 				order = chapterOrder
 			}
 		end))
-		if self.chaptersOrderReversed then
-			Reverse(novelList)
-		end
+
 		info:setChapters(novelList)
 	end
 
@@ -74,7 +70,7 @@ end
 
 
 function defaults:expandURL(url)
-	return url
+	return self.baseURL .. "/" .. url
 end
 
 function defaults:shrinkURL(url)
