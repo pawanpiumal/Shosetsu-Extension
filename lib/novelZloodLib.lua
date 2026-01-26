@@ -192,34 +192,30 @@ end
 ---@return NovelInfo
 function defaults:parseNovel(url, loadChapters)
 	local doc = GETDocument(self.expandURL(url))
-	local content = doc:selectFirst("div.post-content")
-
-	-- Removing HOT or NEW from title.
-	local titleElement = doc:selectFirst(self.novelPageTitleSel)
-	titleElement:select("span"):remove()
+	local content = doc:selectFirst("div.content")
 
 	-- Temporarily saves a Jsoup selection for repeated use. Initial value used for status.
-	local selectedContent = doc:selectFirst("div.post-status"):select("div.post-content_item")
+	-- local selectedContent = doc:selectFirst("div.post-status"):select("div.post-content_item")
 
-	-- For some that doesn't have thumbnail
-	local imgUrl = doc:selectFirst("div.summary_image")
-	if imgUrl then
-		imgUrl = img_src(imgUrl:selectFirst("img.img-responsive"))
-	end
+	-- -- For some that doesn't have thumbnail
+	-- local imgUrl = doc:selectFirst("div.summary_image")
+	-- if imgUrl then
+	-- 	imgUrl = img_src(imgUrl:selectFirst("img.img-responsive"))
+	-- end
 
 	local info = NovelInfo {
 		description = self.parseNovelDescription(doc),
 		title = titleElement:text(),
-		imageURL = imgUrl,
-		status = ({
-					OnGoing = NovelStatus.PUBLISHING,
-					Completed = NovelStatus.COMPLETED,
-					Canceled = NovelStatus.PAUSED,
-					["On Hold"] = NovelStatus.PAUSED,
-					Ongoing = NovelStatus.PUBLISHING -- Never spotted, but better safe than sorry.
-				-- If there is a 'Release' content item then it comes before the 'Status'.
-				-- Therefore, select last content item.
-				})[selectedContent:get(selectedContent:size()-1):select("div.summary-content"):text()]
+		-- imageURL = imgUrl,
+		-- status = ({
+		-- 			OnGoing = NovelStatus.PUBLISHING,
+		-- 			Completed = NovelStatus.COMPLETED,
+		-- 			Canceled = NovelStatus.PAUSED,
+		-- 			["On Hold"] = NovelStatus.PAUSED,
+		-- 			Ongoing = NovelStatus.PUBLISHING -- Never spotted, but better safe than sorry.
+		-- 		-- If there is a 'Release' content item then it comes before the 'Status'.
+		-- 		-- Therefore, select last content item.
+		-- 		})[selectedContent:get(selectedContent:size()-1):select("div.summary-content"):text()]
 	}
 	-- Not every Novel has an guaranteed author, artist or genres (looking at you NovelTrench).
 	selectedContent = content:selectFirst("div.author-content")
@@ -275,7 +271,7 @@ function defaults:parseNovel(url, loadChapters)
 			return NovelChapter{
 				title = v:selectFirst("a"):text(),
 				link = link,
-				release = v:selectFirst("span.chapter-release-date"):text(),
+				-- release = v:selectFirst("span.chapter-release-date"):text(),
 				order = chapterOrder
 			}
 		end))
