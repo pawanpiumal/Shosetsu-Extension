@@ -13,16 +13,16 @@ local defaults = {
 	novelListingURLPath = "novel",
 	-- Certain sites like TeamXNovel do not use [novelListingURLPath] and instead use a suffix to the query to declare what is expected.
 	novelListingURLSuffix = "",
-	novelPageTitleSel = "div.post-title",
-	shrinkURLNovel = "novel",
+	novelPageTitleSel = "li.project-item",
+	shrinkURLNovel = "",
 	searchHasOper = false, -- is AND/OR operation selector present?
 	hasCloudFlare = false,
 	hasSearch = false,
 	chapterType = ChapterType.HTML,
-	chaptersOrderReversed = true,
+	chaptersOrderReversed = false,
 	-- If chaptersScriptLoaded is true, then a ajax request has to be made to get the chapter list.
 	-- Otherwise the chapter list is already loaded when loading the novel overview.
-	chaptersScriptLoaded = true,
+	chaptersScriptLoaded = false,
 	chaptersListSelector= "li.wp-manga-chapter",
 	-- If ajaxUsesFormData is true, then a POST request will be send to baseURL/ajaxFormDataUrl.
 	-- Otherwise to baseURL/shrinkURLNovel/novelurl/ajaxSeriesUrl .
@@ -31,7 +31,7 @@ local defaults = {
 	ajaxFormDataAttr = "data-post",
 	ajaxFormDataUrl = "/wp-admin/admin-ajax.php",
 	ajaxSeriesUrl = "ajax/chapters/",
-	isSearchIncrementing = true,
+	isSearchIncrementing = false,
 
 	--- Some sites require custom CSS to exist, such as RTL support
 	customStyle = "",
@@ -48,7 +48,7 @@ local STATUS_FILTER_KEY_CANCELED = 8
 local STATUS_FILTER_KEY_ON_HOLD = 9
 
 function defaults:latest(data)
-	return self.parse(GETDocument(self.baseURL .. "/" .. self.novelListingURLPath .. "/page/" .. data[PAGE] .. "/?m_orderby=latest" .. self.novelListingURLSuffix))
+	return self.parse(GETDocument(self.baseURL))
 end
 
 ---@param tbl table
@@ -124,15 +124,15 @@ end
 ---@param url string
 ---@return string
 function defaults:getPassage(url)
-	local htmlElement = GETDocument(self.expandURL(url)):selectFirst("div.c-blog-post")
-	local title = htmlElement:selectFirst("ol.breadcrumb li.active"):text()
-	htmlElement = htmlElement:selectFirst("div.text-left")
+	local htmlElement = GETDocument(self.expandURL(url)):selectFirst("div.post.h-entry")
+	local title = htmlElement:selectFirst("h1.posttitle.p-name"):text()
+	htmlElement = htmlElement:selectFirst("div.content.e-content")
 	-- Chapter title inserted before chapter text
 	htmlElement:prepend("<h1>" .. title .. "</h1>");
 
 	-- Remove/modify unwanted HTML elements to get a clean webpage.
-	htmlElement:select("div.lnbad-tag"):remove() -- LightNovelBastion text size
-	htmlElement:select("i.icon.j_open_para_comment.j_para_comment_count"):remove() -- BoxNovel, VipNovel numbers
+	htmlElement:select("a"):remove()
+	-- htmlElement:select("i.icon.j_open_para_comment.j_para_comment_count"):remove() -- BoxNovel, VipNovel numbers
 
 	return pageOfElem(htmlElement, true, self.customStyle)
 end

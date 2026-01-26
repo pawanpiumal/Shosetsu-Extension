@@ -1,4 +1,4 @@
--- {"id":260126,"ver":"1.0.2","libVer":"1.0.0","author":"GPPA","dep":["Madara>=2.2.0"]}
+-- {"id":260126,"ver":"1.0.3","libVer":"1.0.0","author":"GPPA","dep":["Madara>=2.2.0"]}
 
 return Require("novelZloodLib")("https://novel-zlood.github.io", {
 	id = 260126,
@@ -6,9 +6,6 @@ return Require("novelZloodLib")("https://novel-zlood.github.io", {
 	imageURL = "https://novel-zlood.github.io/images/logo.png",
 
 	-- defaults values
-	novelPageTitleSel = "li.project-item",
-	hasSearch = false,
-
 
 	genres = {
 		"Action"
