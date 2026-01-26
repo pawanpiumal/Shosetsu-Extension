@@ -1,6 +1,6 @@
--- {"id":260126,"ver":"1.0.14","libVer":"1.0.0","author":"GPPA"}
+-- {"id":260126,"ver":"1.0.15","libVer":"1.0.0","author":"GPPA"}
 
-return Require("novelZloodLib")("https://soafp.com", {
+return Require("novelZloodLib")("https://novel-zlood.github.io/", {
 	id = 260126,
 	name = "Novel Zlood",
 	imageURL = "https://novel-zlood.github.io/images/logo.png",
