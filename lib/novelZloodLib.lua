@@ -36,8 +36,9 @@ function defaults:parseNovel(url, loadChapters)
 	local doc = GETDocument(self.expandURL(url))
 	local content = doc:selectFirst("div.content")
 
+	local h = content:selectFirst("h1.content")
 	local info = NovelInfo {
-		title = content:selectFirst("h1.content"):text()
+		title = h and h:text() or ""
 	}
 
 	-- Chapters
