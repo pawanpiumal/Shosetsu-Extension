@@ -3,7 +3,7 @@
 		{
 			"id": -821183208,
 			"name": "TechnoJo4",
-			"desc": "Worked on 247truyen, CommonCSS, Madara, WWVolare, novelZlood, url",
+			"desc": "Worked on 247truyen, CommonCSS, Madara, WWVolare, novelZloodLib, url",
 			"imageURL": "",
 			"website": ""
 		},
@@ -81,7 +81,7 @@
 			"hash": "97803cfe54b21695dda1e8f8a37c5933c4dc7691e5df17c2c1df6cef1203c259"
 		},
 		{
-			"name": "novelZlood",
+			"name": "novelZloodLib",
 			"ver": "2.9.2",
 			"url": null,
 			"hash": "fba7d92371a1db4ba12803ef840dd7e619eede38e3d1be5093d08c892693764f"
@@ -118,9 +118,9 @@
 			"fileName": "NovelZlood",
 			"imageURL": "https://novel-zlood.github.io/images/logo.png",
 			"lang": "en",
-			"ver": "1.0.1",
+			"ver": "1.0.2",
 			"libVer": "1.0.0",
-			"md5": "c74cdd2537da7e50ced83f318b359b83291e4a9930ec3ac4d04663c2b15be83b",
+			"md5": "38466ede4f46681015316f295acaab52c26509ef226597db5c26fc39eda1f081",
 			"type": "LuaScript"
 		},
 		{
