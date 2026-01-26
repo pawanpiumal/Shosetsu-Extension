@@ -12,7 +12,7 @@ local defaults = {
 }
 
 function defaults:latest(data)
-	return GETDocument(self.baseURL)
+	return self.parse(GETDocument(self.baseURL))
 end
 
 ---@param url string
@@ -75,6 +75,21 @@ end
 
 function defaults:shrinkURL(url)
 	return url
+end
+
+---@param doc Document
+function defaults:parse(doc)
+	return map(doc:select("ul.project-list"), function(v)
+		local novel = Novel()
+		local data = v:selectFirst("a")
+		novel:setLink(self.shrinkURL(data:attr("href")))
+		local tit = data:text()
+		if tit == "" then
+			tit = data:text()
+		end
+		novel:setTitle(tit)
+		return novel
+	end)
 end
 
 return function(baseURL, _self)
