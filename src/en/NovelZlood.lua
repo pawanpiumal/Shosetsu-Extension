@@ -2,7 +2,7 @@
 
 return Require("Madara")("https://novel-zlood.github.io", {
 	id = 20260126,
-	name = "Zetro Translations",
+	name = "Novel Zlood",
 	imageURL = "https://novel-zlood.github.io/images/logo.png",
 
 	-- defaults values

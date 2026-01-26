@@ -15,16 +15,16 @@
 			"website": ""
 		},
 		{
-			"id": 1379167306,
-			"name": "David Kolf",
-			"desc": "Worked on dkjson",
+			"id": 2194586,
+			"name": "GPPA",
+			"desc": "Worked on Novel Zlood, Zetro Translations",
 			"imageURL": "",
 			"website": ""
 		},
 		{
-			"id": 2194586,
-			"name": "GPPA",
-			"desc": "Worked on Zetro Translations",
+			"id": 1379167306,
+			"name": "David Kolf",
+			"desc": "Worked on dkjson",
 			"imageURL": "",
 			"website": ""
 		},
@@ -119,13 +119,13 @@
 		},
 		{
 			"id": 20260126,
-			"name": "Zetro Translations",
+			"name": "Novel Zlood",
 			"fileName": "NovelZlood",
 			"imageURL": "https://novel-zlood.github.io/images/logo.png",
 			"lang": "en",
 			"ver": "1.0.0",
 			"libVer": "1.0.0",
-			"md5": "36f98b30065f8f1e120ae87129d35d75af1a9063ed523c43f4685c9a57950b69",
+			"md5": "ebccaefecf62517f89bb448620c60a3148b63dc3c689403fa73352b23973eee1",
 			"type": "LuaScript"
 		}
 	],
