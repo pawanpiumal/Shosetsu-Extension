@@ -1,4 +1,4 @@
--- {"id":260126,"ver":"1.0.0","libVer":"1.0.0","author":"GPPA","dep":["Madara>=2.2.0"]}
+-- {"id":260126,"ver":"1.0.1","libVer":"1.0.0","author":"GPPA","dep":["Madara>=2.2.0"]}
 
 return Require("novelZlood")("https://novel-zlood.github.io", {
 	id = 260126,

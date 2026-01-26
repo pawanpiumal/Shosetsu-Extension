@@ -118,9 +118,9 @@
 			"fileName": "NovelZlood",
 			"imageURL": "https://novel-zlood.github.io/images/logo.png",
 			"lang": "en",
-			"ver": "1.0.0",
+			"ver": "1.0.1",
 			"libVer": "1.0.0",
-			"md5": "4f6109c38ab655d7192c46a3b1ae507fcb20453461728067e019721fcb970903",
+			"md5": "c74cdd2537da7e50ced83f318b359b83291e4a9930ec3ac4d04663c2b15be83b",
 			"type": "LuaScript"
 		},
 		{
