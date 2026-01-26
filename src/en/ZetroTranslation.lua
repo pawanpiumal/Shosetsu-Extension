@@ -1,7 +1,7 @@
--- {"id":4282701,"ver":"1.0.1","libVer":"1.0.0","author":"GPPA","dep":["Madara>=2.2.0"]}
+-- {"id":4282,"ver":"1.0.1","libVer":"1.0.0","author":"GPPA","dep":["Madara>=2.2.0"]}
 
 return Require("Madara")("https://zetrotranslation.com", {
-	id = 4282701,
+	id = 4282
 	name = "Zetro Translationsqwe",
 	imageURL = "https://zetrotranslation.com/wp-content/uploads/2020/12/logo_red-e1607700845220.png",
 

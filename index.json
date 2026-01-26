@@ -3,7 +3,7 @@
 		{
 			"id": -821183208,
 			"name": "TechnoJo4",
-			"desc": "Worked on 247truyen, CommonCSS, Kemono, Madara, WWVolare, url",
+			"desc": "Worked on 247truyen, CommonCSS, Madara, WWVolare, url",
 			"imageURL": "",
 			"website": ""
 		},
@@ -106,17 +106,6 @@
 		}
 	],
 	"scripts": [
-		{
-			"id": 93278,
-			"name": "Kemono",
-			"fileName": "Kemono",
-			"imageURL": "https://kemono.cr/static/klogo.png",
-			"lang": "all",
-			"ver": "1.0.4",
-			"libVer": "1.0.0",
-			"md5": "f118dc4896092f1ca2fed7d3017c226c1e3655c9e769bede718c24e2196e85ab",
-			"type": "LuaScript"
-		},
 		{
 			"id": 4282701,
 			"name": "Zetro Translationsqwe",
