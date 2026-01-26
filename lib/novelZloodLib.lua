@@ -51,76 +51,6 @@ function defaults:latest(data)
 	return self.parse(GETDocument(self.baseURL))
 end
 
----@param tbl table
----@return string
-function defaults:createSearchString(tbl)
-	local query = tbl[QUERY]
-	local page = tbl[PAGE]
-	local orderBy = tbl[ORDER_BY_FILTER_KEY]
-	local author = tbl[AUTHOR_FILTER_KEY]
-	local artist = tbl[ARTIST_FILTER_KEY]
-	local release = tbl[RELEASE_FILTER_KEY]
-
-	local url = self.baseURL .. "/page/" .. page ..
-			"/?s=" .. encode(query) .. "&post_type=wp-manga" ..
-			"&author=" .. encode(author) ..
-			"&artist=" .. encode(artist) ..
-			"&release=" .. encode(release)
-
-	if orderBy ~= nil then
-		url = url .. "&m_orderby=" .. ({
-			[0] = "relevance",
-			[1] = "latest",
-			[2] = "alphabet",
-			[3] = "rating",
-			[4] = "trending",
-			[5] = "views",
-			[6] = "new-manga"
-		})[orderBy]
-	end
-	if tbl[STATUS_FILTER_KEY_COMPLETED] then
-		url = url .. "&status[]=end"
-	end
-	if tbl[STATUS_FILTER_KEY_ONGOING] then
-		url = url .. "&status[]=on-going"
-	end
-	if tbl[STATUS_FILTER_KEY_CANCELED] then
-		url = url .. "&status[]=canceled"
-	end
-	if tbl[STATUS_FILTER_KEY_ON_HOLD] then
-		url = url .. "&status[]=on-hold"
-	end
-	for key, value in pairs(self.genres_map) do
-		if tbl[key] then
-			url = url .. "&genre[]=" .. value
-		end
-	end
-
-	if self.searchHasOper then
-		url = url .. "&op=" .. (tbl[self.searchOperId] and "0" or "1")
-	end
-
-	return self.appendToSearchURL(url, tbl)
-end
-
----@param str string
----@param tbl table
----@return string
-function defaults:appendToSearchURL(str, tbl)
-	return str
-end
-
----@param tbl table
----@return table
-function defaults:appendToSearchFilters(tbl)
-	return tbl
-end
-
-function defaults:search(data)
-	local url = self.createSearchString(data)
-	return self.parse(GETDocument(url), true)
-end
-
 ---@param url string
 ---@return string
 function defaults:getPassage(url)
@@ -137,41 +67,6 @@ function defaults:getPassage(url)
 	return pageOfElem(htmlElement, true, self.customStyle)
 end
 
----@param image_element Element An img element of which the biggest image shall be selected.
----@return string A link to the biggest image of the image_element.
-local function img_src(image_element)
-	-- Different extensions have the image(s) saved in different attributes. Not even uniformly for one extension.
-	-- Partially this comes down to script loading the pictures. Therefore, scour for a picture in the default HTML page.
-
-	-- Check data-srcset:
-	local srcset = image_element:attr("data-srcset")
-	if srcset ~= "" then
-		-- Get the largest image.
-		local max_size, max_url = 0, ""
-		for url, size in srcset:gmatch("(http.-) (%d+)w") do
-			if tonumber(size) > max_size then
-				max_size = tonumber(size)
-				max_url = url
-			end
-		end
-		return max_url
-	end
-
-	-- Check data-src:
-	srcset = image_element:attr("data-src")
-	if srcset ~= "" then
-		return srcset
-	end
-
-	-- Check data-lazy-src:
-	srcset = image_element:attr("data-lazy-src")
-	if srcset ~= "" then
-		return srcset
-	end
-
-	-- Default to src (the most likely place to be loaded via script):
-	return image_element:attr("src")
-end
 
 ---@param document Document The page containing novel information
 ---@return string the novel description
@@ -204,58 +99,14 @@ function defaults:parseNovel(url, loadChapters)
 	-- end
 
 	local info = NovelInfo {
-		description = self.parseNovelDescription(doc),
-		title = titleElement:text(),
-		-- imageURL = imgUrl,
-		-- status = ({
-		-- 			OnGoing = NovelStatus.PUBLISHING,
-		-- 			Completed = NovelStatus.COMPLETED,
-		-- 			Canceled = NovelStatus.PAUSED,
-		-- 			["On Hold"] = NovelStatus.PAUSED,
-		-- 			Ongoing = NovelStatus.PUBLISHING -- Never spotted, but better safe than sorry.
-		-- 		-- If there is a 'Release' content item then it comes before the 'Status'.
-		-- 		-- Therefore, select last content item.
-		-- 		})[selectedContent:get(selectedContent:size()-1):select("div.summary-content"):text()]
+		title = titleElement:text()
 	}
-	-- Not every Novel has an guaranteed author, artist or genres (looking at you NovelTrench).
-	selectedContent = content:selectFirst("div.author-content")
-	if selectedContent ~= nil then
-		info:setAuthors( map(selectedContent:select("a"), text) )
-	end
-	selectedContent = content:selectFirst("div.artist-content")
-	if selectedContent ~= nil then
-		info:setArtists( map(selectedContent:select("a"), text) )
-	end
-	selectedContent = content:selectFirst("div.genres-content")
-	if selectedContent ~= nil then
-		info:setGenres( map(selectedContent:select("a"), text) )
-	end
 
 	-- Chapters
 	-- Overrides `doc` if self.chaptersScriptLoaded is true.
 	if loadChapters then
-		if self.chaptersScriptLoaded then
-			if self.ajaxUsesFormData then
-				-- Old method.
-				local button = doc:selectFirst(self.ajaxFormDataSel)
-				local id = button:attr(self.ajaxFormDataAttr)
 
-				doc = RequestDocument(
-						POST(self.baseURL .. self.ajaxFormDataUrl, nil,
-								FormBodyBuilder()
-										:add("action", "manga_get_chapters")
-										:add("manga", id):build())
-				)
-			else
-				-- Used by BoxNovel, Foxaholic, NovelTrench, LightNovelHeaven, VipNovel and WoopRead.
-				doc = RequestDocument(
-						POST(self.baseURL .. "/" .. self.shrinkURLNovel .. "/" .. url .. self.ajaxSeriesUrl,
-								nil, nil)
-				)
-			end
-		end
-
-		local chapterList = doc:select(self.chaptersListSelector)
+		local chapterList = content:selectFirst("p")
 		local chapterOrder = -1
 		if self.chaptersOrderReversed then
 			chapterOrder = chapterList:size()
@@ -271,7 +122,6 @@ function defaults:parseNovel(url, loadChapters)
 			return NovelChapter{
 				title = v:selectFirst("a"):text(),
 				link = link,
-				-- release = v:selectFirst("span.chapter-release-date"):text(),
 				order = chapterOrder
 			}
 		end))
@@ -320,32 +170,7 @@ return function(baseURL, _self)
 
 	_self.genres_map = {}
 	local keyID = 100
-	local filters = {
-		DropdownFilter(ORDER_BY_FILTER_KEY, "Order by", ORDER_BY_FILTER_EXT),
-		TextFilter(AUTHOR_FILTER_KEY, "Author"),
-		TextFilter(ARTIST_FILTER_KEY, "Artist"),
-		TextFilter(RELEASE_FILTER_KEY, "Year of Release"),
-		FilterGroup("Status", {
-			CheckboxFilter(STATUS_FILTER_KEY_COMPLETED, "Completed"),
-			CheckboxFilter(STATUS_FILTER_KEY_ONGOING, "Ongoing"),
-			CheckboxFilter(STATUS_FILTER_KEY_CANCELED, "Canceled"),
-			CheckboxFilter(STATUS_FILTER_KEY_ON_HOLD, "On Hold")
-		}),
-		FilterGroup("Genres", map(_self.genres, function(v, k)
-			keyID = keyID + 1
-			_self.genres_map[keyID] = k or v:lower():gsub(" ", "-")
-			return CheckboxFilter(keyID, v)
-		end)) -- 6
-	}
 
-	if _self.searchHasOper then
-		keyID = keyID + 1
-		_self.searchOperId = keyID
-		filters[#filters + 1] = DropdownFilter(keyID, "Genres Condition", { "OR (any of selected)", "AND (all selected)" })
-	end
-
-	filters = _self.appendToSearchFilters(filters)
-	_self["searchFilters"] = filters
 	_self["baseURL"] = baseURL
 	_self["listings"] = { Listing("Default", true, _self.latest) }
 	_self["updateSetting"] = function(id, value)
