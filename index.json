@@ -107,14 +107,14 @@
 	],
 	"scripts": [
 		{
-			"id": 4282701,
+			"id": 4282,
 			"name": "Zetro Translationsqwe",
 			"fileName": "ZetroTranslation",
 			"imageURL": "https://zetrotranslation.com/wp-content/uploads/2020/12/logo_red-e1607700845220.png",
 			"lang": "en",
 			"ver": "1.0.1",
 			"libVer": "1.0.0",
-			"md5": "aa705a965f15e4a5840b165177b24bb17f11219734f00976689755f95d696577",
+			"md5": "327e5d846220e1d06afb0e50271d714563a8c424a2d30df9440c7ee0d07a6965",
 			"type": "LuaScript"
 		}
 	],
