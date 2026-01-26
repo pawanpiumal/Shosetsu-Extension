@@ -82,9 +82,9 @@
 		},
 		{
 			"name": "novelZloodLib",
-			"ver": "1.0.1",
+			"ver": "1.0.2",
 			"url": null,
-			"hash": "d269a71168009491796289db59c9857cd10365271b0258bbb922c1fccb200fa5"
+			"hash": "c3d00d777f289e078a11372d4d4f4a9108cc957d15d191ceb4cd186942796a2b"
 		},
 		{
 			"name": "novelvault",
@@ -118,9 +118,9 @@
 			"fileName": "NovelZlood",
 			"imageURL": "https://novel-zlood.github.io/images/logo.png",
 			"lang": "en",
-			"ver": "1.0.17",
-			"libVer": "1.0.1",
-			"md5": "af3bea181d472e0a53e33eefb7770db2ed44d23d7be1af0cf100c0ba5853e47a",
+			"ver": "1.0.18",
+			"libVer": "1.0.2",
+			"md5": "bd8273666ff0b4129710149c248387121fb3a835d78ab2f1bb7583bfab6000f2",
 			"type": "LuaScript"
 		},
 		{
