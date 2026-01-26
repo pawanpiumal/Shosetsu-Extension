@@ -107,6 +107,17 @@
 	],
 	"scripts": [
 		{
+			"id": 260126,
+			"name": "Novel Zlood",
+			"fileName": "NovelZlood",
+			"imageURL": "https://novel-zlood.github.io/images/logo.png",
+			"lang": "en",
+			"ver": "1.0.0",
+			"libVer": "1.0.0",
+			"md5": "ab93e67dc8c6b4aa3c7f53088cccc3515cde7f53fb87cec7e28c35a55545d149",
+			"type": "LuaScript"
+		},
+		{
 			"id": 428271,
 			"name": "Zetro Translations",
 			"fileName": "ZetroTranslation",
@@ -115,17 +126,6 @@
 			"ver": "1.0.2",
 			"libVer": "1.0.0",
 			"md5": "46dd79cdb49cf8087fd5fcad8657a932b4624c4fc29ec48b5e79f8d6d827ed4a",
-			"type": "LuaScript"
-		},
-		{
-			"id": 20260126,
-			"name": "Novel Zlood",
-			"fileName": "NovelZlood",
-			"imageURL": "https://novel-zlood.github.io/images/logo.png",
-			"lang": "en",
-			"ver": "1.0.0",
-			"libVer": "1.0.0",
-			"md5": "ebccaefecf62517f89bb448620c60a3148b63dc3c689403fa73352b23973eee1",
 			"type": "LuaScript"
 		}
 	],
