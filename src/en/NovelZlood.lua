@@ -1,4 +1,4 @@
--- {"id":260126,"ver":"1.0.19","libVer":"1.0.2","author":"GPPA"}
+-- {"id":260126,"ver":"1.0.21","libVer":"1.0.3","author":"GPPA"}
 
 return Require("novelZloodLib")("https://novel-zlood.github.io/", {
 	id = 260126,

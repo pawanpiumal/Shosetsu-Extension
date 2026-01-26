@@ -1,4 +1,4 @@
--- {"ver":"1.0.2","author":"GPPA"}
+-- {"ver":"1.0.3","author":"GPPA"}
 
 local settings = {}
 
