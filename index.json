@@ -3,7 +3,14 @@
 		{
 			"id": -821183208,
 			"name": "TechnoJo4",
-			"desc": "Worked on 247truyen, CommonCSS, Madara, WWVolare, novelZloodLib, url",
+			"desc": "Worked on 247truyen, CommonCSS, Madara, WWVolare, url",
+			"imageURL": "",
+			"website": ""
+		},
+		{
+			"id": 2194586,
+			"name": "GPPA",
+			"desc": "Worked on Novel Zlood, Zetro Translations, novelZloodLib",
 			"imageURL": "",
 			"website": ""
 		},
@@ -11,13 +18,6 @@
 			"id": 1550377221,
 			"name": "Bigrand",
 			"desc": "Worked on novelvault, unhtml",
-			"imageURL": "",
-			"website": ""
-		},
-		{
-			"id": 2194586,
-			"name": "GPPA",
-			"desc": "Worked on Novel Zlood, Zetro Translations",
 			"imageURL": "",
 			"website": ""
 		},
@@ -82,9 +82,9 @@
 		},
 		{
 			"name": "novelZloodLib",
-			"ver": "2.9.2",
+			"ver": "1.0.0",
 			"url": null,
-			"hash": "89b725b1292bf7a35d2386ebecf411f9c4e9523d6980285e84c41d723ff8253d"
+			"hash": "f1ab6ccc44deeacc49c876a14ccba5f396c91ae0197dc44dc9e7063d8788428f"
 		},
 		{
 			"name": "novelvault",
@@ -118,9 +118,9 @@
 			"fileName": "NovelZlood",
 			"imageURL": "https://novel-zlood.github.io/images/logo.png",
 			"lang": "en",
-			"ver": "1.0.7",
+			"ver": "1.0.8",
 			"libVer": "1.0.0",
-			"md5": "e3c12361825bdef570879ae1a64dd28a7086b9c159df3766e2d65f91f2ae69bc",
+			"md5": "da36d2cc2c1ce52e78a70e1a904854771c4f8d044f078f577b3a85f8ae9ba790",
 			"type": "LuaScript"
 		},
 		{
