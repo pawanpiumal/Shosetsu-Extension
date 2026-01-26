@@ -6,8 +6,8 @@ return Require("Madara")("https://novel-zlood.github.io", {
 	imageURL = "https://novel-zlood.github.io/images/logo.png",
 
 	-- defaults values
-	latestNovelSel = "div.page-listing-item",
-	ajaxUsesFormData = true,
+	novelPageTitleSel = "li.project-item",
+	hasSearch = false,
 
 
 	genres = {
