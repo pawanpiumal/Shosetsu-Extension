@@ -1,7 +1,7 @@
--- {"id":4282701,"ver":"1.0.1","libVer":"1.0.0","author":"Doomsdayrs","dep":["Madara>=2.2.0"]}
+-- {"id":199824,"ver":"1.0.1","libVer":"1.0.0","author":"Doomsdayrs","dep":["Madara>=2.2.0"]}
 
 return Require("Madara")("https://zetrotranslation.com", {
-	id = 42827011,
+	id = 199824,
 	name = "Zetro Translations22",
 	imageURL = "https://zetrotranslation.com/wp-content/uploads/2020/12/logo_red-e1607700845220.png",
 
