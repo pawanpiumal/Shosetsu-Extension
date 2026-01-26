@@ -2,7 +2,7 @@
 
 return Require("Madara")("https://zetrotranslation.com", {
 	id = 42827011,
-	name = "Zetro Translations2",
+	name = "Zetro Translations22",
 	imageURL = "https://zetrotranslation.com/wp-content/uploads/2020/12/logo_red-e1607700845220.png",
 
 	-- defaults values
