@@ -112,9 +112,9 @@
 			"fileName": "ZetroTranslation",
 			"imageURL": "https://zetrotranslation.com/wp-content/uploads/2020/12/logo_red-e1607700845220.png",
 			"lang": "en",
-			"ver": "1.0.1",
+			"ver": "1.0.2",
 			"libVer": "1.0.0",
-			"md5": "e58c124b15602b78d7d0c72bc51c1a72e07d6097716f1a9f2d41c09b99d2a813",
+			"md5": "46dd79cdb49cf8087fd5fcad8657a932b4624c4fc29ec48b5e79f8d6d827ed4a",
 			"type": "LuaScript"
 		}
 	],
