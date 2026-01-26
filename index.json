@@ -22,9 +22,9 @@
 			"website": ""
 		},
 		{
-			"id": -2017179821,
-			"name": "Doomsdayrs",
-			"desc": "Worked on Zetro Translations22",
+			"id": 2194586,
+			"name": "GPPA",
+			"desc": "Worked on Zetro Translationsqwe",
 			"imageURL": "",
 			"website": ""
 		},
@@ -119,13 +119,13 @@
 		},
 		{
 			"id": 199824,
-			"name": "Zetro Translations22",
+			"name": "Zetro Translationsqwe",
 			"fileName": "GPPA",
 			"imageURL": "https://zetrotranslation.com/wp-content/uploads/2020/12/logo_red-e1607700845220.png",
 			"lang": "en",
 			"ver": "1.0.1",
 			"libVer": "1.0.0",
-			"md5": "094713f21ad7d74afcd0d39e47161bb7f64481cc687c1651220937faafa5ecfd",
+			"md5": "e0c82c8cdf2b9af43f722eaa4c9b27b81b9bf67cfdc40da4511acb276111e261",
 			"type": "LuaScript"
 		}
 	],
