@@ -10,7 +10,7 @@ return Require("Madara")("https://zetrotranslation.com", {
 	ajaxUsesFormData = true,
 
 	-- There are paid chapters, we can ignore it
-	chaptersListSelector= "li.wp-manga-chapter.free-chap",
+	chaptersListSelector= "li.wp-manga-chapter",
 
 	genres = {
 		"Action",
