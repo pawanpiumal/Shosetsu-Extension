@@ -37,7 +37,7 @@ function defaults:parseNovel(url, loadChapters)
 	local content = doc:selectFirst("div.content")
 
 	local info = NovelInfo {
-		title = titleElement:text()
+		title = content:selectFirst("h1.content"):text()
 	}
 
 	-- Chapters
