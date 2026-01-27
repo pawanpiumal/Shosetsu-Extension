@@ -1,4 +1,4 @@
--- {"ver":"1.0.46","author":"GPPA"}
+-- {"ver":"1.0.51","author":"GPPA"}
 
 local settings = {}
 
@@ -6,6 +6,8 @@ local defaults = {
 	latestNovelSel = "ul.project-list",
 
 	novelPageTitleSel = "li.project-item",
+
+	hasSearch = false,
 
 	--- Some sites require custom CSS to exist, such as RTL support
 	customStyle = ""
@@ -70,7 +72,7 @@ function defaults:parseNovel(url, loadChapters)
 end
 
 function defaults:search(data)
-	return self.parse(GETDocument(self.baseURL))
+	return nil
 end
 
 
