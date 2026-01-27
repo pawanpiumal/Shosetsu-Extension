@@ -8,16 +8,16 @@
 			"website": ""
 		},
 		{
-			"id": 2194586,
-			"name": "GPPA",
-			"desc": "Worked on Novel Zlood, Zetro Translations, novelZloodLib",
+			"id": 1550377221,
+			"name": "Bigrand",
+			"desc": "Worked on novelvault, unhtml",
 			"imageURL": "",
 			"website": ""
 		},
 		{
-			"id": 1550377221,
-			"name": "Bigrand",
-			"desc": "Worked on novelvault, unhtml",
+			"id": 2194586,
+			"name": "GPPA",
+			"desc": "Worked on Novel Zlood, novelZloodLib",
 			"imageURL": "",
 			"website": ""
 		},
@@ -82,9 +82,9 @@
 		},
 		{
 			"name": "novelZloodLib",
-			"ver": "1.0.3",
+			"ver": "1.0.46",
 			"url": null,
-			"hash": "a3cadb2a6d76ad3a563641843128d201b8f575f2355648fbfbdcb6b8b526dbf7"
+			"hash": "c219a8a209930fa6025f0eb98dc809e40fa8b60042ea141208555ec30ddb9cb6"
 		},
 		{
 			"name": "novelvault",
@@ -118,20 +118,9 @@
 			"fileName": "NovelZlood",
 			"imageURL": "https://novel-zlood.github.io/images/logo.png",
 			"lang": "en",
-			"ver": "1.0.21",
-			"libVer": "1.0.3",
-			"md5": "7402b4d73b22547370dafbe96341c413fd37be5c1e36282452690d05d9a1ac98",
-			"type": "LuaScript"
-		},
-		{
-			"id": 428271,
-			"name": "Zetro Translations",
-			"fileName": "ZetroTranslation",
-			"imageURL": "https://zetrotranslation.com/wp-content/uploads/2020/12/logo_red-e1607700845220.png",
-			"lang": "en",
-			"ver": "1.0.2",
+			"ver": "1.0.80",
 			"libVer": "1.0.0",
-			"md5": "46dd79cdb49cf8087fd5fcad8657a932b4624c4fc29ec48b5e79f8d6d827ed4a",
+			"md5": "2bc9d2b3950dfe75af599d113b41227f3b7299bdb3aa1060cf7528d6a0c14ea7",
 			"type": "LuaScript"
 		}
 	],

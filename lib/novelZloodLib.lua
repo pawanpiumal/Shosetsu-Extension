@@ -1,4 +1,4 @@
--- {"ver":"1.0.3","author":"GPPA"}
+-- {"ver":"1.0.46","author":"GPPA"}
 
 local settings = {}
 
@@ -18,11 +18,11 @@ end
 ---@param url string
 ---@return string
 function defaults:getPassage(url)
-	local htmlElement = GETDocument(self.expandURL(url)):selectFirst("div.post.h-entry")
+	local htmlElement = GETDocument(self.expandURL(url)):selectFirst("article.post.h-entry")
 	local title = htmlElement:selectFirst("h1.posttitle.p-name"):text()
 	htmlElement = htmlElement:selectFirst("div.content.e-content")
 	-- Chapter title inserted before chapter text
-	htmlElement:prepend("<h1>" .. title .. "</h1>");
+	-- htmlElement:prepend("<h1>" .. title .. "</h1>");
 
 	htmlElement:select("a"):remove()
 
@@ -33,40 +33,44 @@ end
 ---@param loadChapters boolean
 ---@return NovelInfo
 function defaults:parseNovel(url, loadChapters)
-	local doc = GETDocument(self.expandURL(url))
-	local content = doc:selectFirst("div.content")
+    local doc = GETDocument(self.expandURL(url))
 
-	local h = content:selectFirst("h1.content")
-	local info = NovelInfo {
-		title = h and h:text() or ""
-	}
+    local content = doc:selectFirst("article.post div.content")
 
-	-- Chapters
-	-- Overrides `doc` if self.chaptersScriptLoaded is true.
-	if loadChapters then
+    local h = content and content:selectFirst("h1")
+    local info = NovelInfo {
+        title = h and h:text() or ""
+    }
 
-		local chapterList = content:selectFirst("p")
-		local chapterOrder = -1
+    -- Chapters
+    -- Overrides `doc` if self.chaptersScriptLoaded is true.
+    if loadChapters and content then
 
-		local novelList = AsList(mapNotNil(chapterList, function(v)
+        -- select all paragraph elements and guard nil anchors
+        local chapterList = content:selectFirst("p"):select("a") or {}
+        local chapterOrder = 1
 
-			local link = self.shrinkURL(v:selectFirst("a"):attr("href"))
-			if link == "#" then return nil end
-			return NovelChapter{
-				title = v:selectFirst("a"):text(),
-				link = link,
-				order = chapterOrder
-			}
-		end))
+        local novelList = AsList(mapNotNil(chapterList, function(v)
+            local a = v:selectFirst("a")
+			
+            local href = a:attr("href") or ""
+            if href == "#" or href == "" then return nil end
 
-		info:setChapters(novelList)
-	end
+            return NovelChapter{
+                title = a:text() or href,
+                link = href,
+                order = chapterOrder
+            }
+        end))
 
-	return info
+        info:setChapters(novelList)
+    end
+
+    return info
 end
 
 function defaults:search(data)
-	return GETDocument(url)
+	return self.parse(GETDocument(self.baseURL))
 end
 
 
@@ -80,17 +84,25 @@ end
 
 ---@param doc Document
 function defaults:parse(doc)
-	return map(doc:select("ul.project-list"), function(v)
-		local novel = Novel()
-		local data = v:selectFirst("a")
-		novel:setLink(self.shrinkURL(data:attr("href")))
-		local tit = data:text()
-		if tit == "" then
-			tit = data:text()
-		end
-		novel:setTitle(tit)
-		return novel
-	end)
+    return mapNotNil(doc:select("ul.project-list li"), function(v)
+        local a = v:selectFirst("a")
+        if not a then return nil end
+
+        local href = a:attr("href") or ""
+        if href == "#" or href == "" then return nil end
+        href = self.shrinkURL(href)
+
+        local tit = a:text() or a:attr("title") or ""
+        -- trim whitespace
+        tit = tit:gsub("^%s*(.-)%s*$", "%1")
+        if tit == "" then tit = href end
+
+        local novel = Novel()
+        novel:setLink(href)
+
+        novel:setTitle(tit)
+        return novel
+    end)
 end
 
 return function(baseURL, _self)
@@ -103,7 +115,7 @@ return function(baseURL, _self)
 	local keyID = 100
 
 	_self["baseURL"] = baseURL
-	_self["listings"] = { Listing("Default", true, _self.latest) }
+	_self["listings"] = { Listing("Default", false, _self.latest) }
 	_self["updateSetting"] = function(id, value)
 		settings[id] = value
 	end
