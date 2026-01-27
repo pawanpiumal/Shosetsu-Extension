@@ -112,9 +112,9 @@
 		},
 		{
 			"name": "yukikitsunekoLib",
-			"ver": "0.0.57",
+			"ver": "0.0.96",
 			"url": null,
-			"hash": "0c8cb70b6a803c291cdf914ba5739b703a60323ea1181a8b214184a71b606caf"
+			"hash": "e1e751402265e5c83c7bee4334798e70b8ce67bb0de8a6489f675172415d625a"
 		}
 	],
 	"scripts": [
@@ -135,9 +135,9 @@
 			"fileName": "YukiKitsuneko",
 			"imageURL": "https://blogger.googleusercontent.com/img/a/AVvXsEjmtcoZ_MDWp2CpXJZSAaSXOqqL-E54sJ4nw9AxmSv3yprfwVvxipfp41x8g2Q96eCorBx8S4vQZOZdggz_HE7k2G8MlfBFlYnRtNioP_CI7o2TbSfKIa9IVxY2xMDo1MVlUJixzeBWr__ZWgNQsoDc6Qmp0kLeTYlmZ4iHHT0yazeJL4aOsDNkUxQUMm7P=s640",
 			"lang": "en",
-			"ver": "0.0.59",
+			"ver": "0.0.96",
 			"libVer": "1.0.0",
-			"md5": "a329951cff8aae6e6f13afc716f6fa6da7ef161c242b9f2f8d272a700d8706ac",
+			"md5": "0277118a57b1eddf52c9d99aa3c15fc753a259b15e22b894cd9da874dc07fee4",
 			"type": "LuaScript"
 		}
 	],

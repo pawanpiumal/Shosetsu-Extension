@@ -1,4 +1,4 @@
--- {"id":260127,"ver":"0.0.59","libVer":"1.0.0","author":"GPPA"}
+-- {"id":260127,"ver":"0.0.96","libVer":"1.0.0","author":"GPPA"}
 
 
 return Require("yukikitsunekoLib")("https://yukikitsuneko.blogspot.com/", {
