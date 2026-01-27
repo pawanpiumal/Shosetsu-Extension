@@ -8,16 +8,16 @@
 			"website": ""
 		},
 		{
-			"id": 1550377221,
-			"name": "Bigrand",
-			"desc": "Worked on novelvault, unhtml",
+			"id": 2194586,
+			"name": "GPPA",
+			"desc": "Worked on Novel Zlood, Yuki Kitsuneko, novelZloodLib, yukikitsunekoLib",
 			"imageURL": "",
 			"website": ""
 		},
 		{
-			"id": 2194586,
-			"name": "GPPA",
-			"desc": "Worked on Novel Zlood, novelZloodLib",
+			"id": 1550377221,
+			"name": "Bigrand",
+			"desc": "Worked on novelvault, unhtml",
 			"imageURL": "",
 			"website": ""
 		},
@@ -109,6 +109,12 @@
 			"ver": "1.0.0",
 			"url": null,
 			"hash": "385ac1f729ae11ec9ea60089d275e6d937857a0ee2a09291c5ce187e86966180"
+		},
+		{
+			"name": "yukikitsunekoLib",
+			"ver": "0.0.57",
+			"url": null,
+			"hash": "0c8cb70b6a803c291cdf914ba5739b703a60323ea1181a8b214184a71b606caf"
 		}
 	],
 	"scripts": [
@@ -121,6 +127,17 @@
 			"ver": "1.0.85",
 			"libVer": "1.0.0",
 			"md5": "4012a8e3172693d9e9fb21f6a26262d44969a0d768ac1ba44147f3c23bc694ee",
+			"type": "LuaScript"
+		},
+		{
+			"id": 260127,
+			"name": "Yuki Kitsuneko",
+			"fileName": "YukiKitsuneko",
+			"imageURL": "https://blogger.googleusercontent.com/img/a/AVvXsEjmtcoZ_MDWp2CpXJZSAaSXOqqL-E54sJ4nw9AxmSv3yprfwVvxipfp41x8g2Q96eCorBx8S4vQZOZdggz_HE7k2G8MlfBFlYnRtNioP_CI7o2TbSfKIa9IVxY2xMDo1MVlUJixzeBWr__ZWgNQsoDc6Qmp0kLeTYlmZ4iHHT0yazeJL4aOsDNkUxQUMm7P=s640",
+			"lang": "en",
+			"ver": "0.0.59",
+			"libVer": "1.0.0",
+			"md5": "a329951cff8aae6e6f13afc716f6fa6da7ef161c242b9f2f8d272a700d8706ac",
 			"type": "LuaScript"
 		}
 	],
