@@ -10,7 +10,7 @@
 		{
 			"id": 2194586,
 			"name": "GPPA",
-			"desc": "Worked on Novel Zlood, Pen and Paper Translations, Yuki Kitsuneko",
+			"desc": "Worked on Novel Zlood, Pen and Paper Translations, Vampira MTL, Yuki Kitsuneko",
 			"imageURL": "",
 			"website": ""
 		},
@@ -134,9 +134,20 @@
 			"fileName": "PenAndPaperTranslations",
 			"imageURL": "https://i0.wp.com/penandpapertranslations.com/wp-content/uploads/2025/07/resized_pen_logo_512x512-1.png",
 			"lang": "en",
-			"ver": "0.0.130",
+			"ver": "0.0.131",
 			"libVer": "1.0.0",
-			"md5": "5d9e1a199a517f551166945db6e4a5aa73f5e1edca79d825acbad8139c87e6c9",
+			"md5": "0f003f86a946662ff81e3cda5c47c2e4f92cb934d9b234748f42bc9965adc28a",
+			"type": "LuaScript"
+		},
+		{
+			"id": 20260201,
+			"name": "Vampira MTL",
+			"fileName": "VampiraMTL",
+			"imageURL": "https://i0.wp.com/www.vampiramtl.com/wp-content/uploads/2023/05/cropped-e28094pngtreee28094moon-flying-bat-swarm-halloween_5567857-2-1.png",
+			"lang": "en",
+			"ver": "0.0.14",
+			"libVer": "1.0.0",
+			"md5": "8e3dc39d87991c9b6bdddae93838b4ccca6169651ed1a7db5118f0a0627a08a5",
 			"type": "LuaScript"
 		}
 	],

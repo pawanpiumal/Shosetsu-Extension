@@ -1,4 +1,4 @@
--- {"id":20260131,"ver":"0.0.130","libVer":"1.0.0","author":"GPPA"}
+-- {"id":20260131,"ver":"0.0.131","libVer":"1.0.0","author":"GPPA"}
 --- Identification number of the extension.
 --- Should be unique. Should be consistent in all references.
 ---
@@ -178,7 +178,6 @@ local function parseNovel(novelURL, loadChapters)
 
     local doc = document:selectFirst("div.wp-block-columns-is-layout-flex div.wp-block-column-is-layout-flow")
 
-    local novel = Novel()
     local title = doc:selectFirst("h2"):text() or ""
 
     local imgElement = doc:selectFirst("img")
