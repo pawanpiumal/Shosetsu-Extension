@@ -1,4 +1,4 @@
--- {"id":20260201,"ver":"0.0.14","libVer":"1.0.0","author":"GPPA"}
+-- {"id":20260201,"ver":"0.0.17","libVer":"1.0.0","author":"GPPA"}
 --- Identification number of the extension.
 --- Should be unique. Should be consistent in all references.
 ---
@@ -42,7 +42,7 @@ local hasCloudFlare = false
 --- Optional, Default is true.
 ---
 --- @type boolean
-local hasSearch = false
+local hasSearch = true
 
 --- If the websites search increments or not.
 ---
@@ -184,7 +184,35 @@ local function search(data)
     --- @type string
     local query = data[QUERY]
 
-    return {}
+    -- Previous documentation, except no data or appending.
+    local urls = {"https://www.vampiramtl.com/ongoing-caught-up-series/",
+                  "https://www.vampiramtl.com/completed-series/", "https://www.vampiramtl.com/dropped-series/"}
+
+    local novels = {}
+    for _, url in ipairs(urls) do
+        local document = GETDocument(url)
+        local a = document:select("div.entry-content a")
+
+        mapNotNil(a, function(v)
+            local href = v:attr("href")
+
+            local title = v:text() or ""
+
+            title = title:lower()
+
+            query = query:lower()
+
+            if title:find(query, 1, true) ~= nil then
+                local novel = Novel {
+                    title = title,
+                    link = shrinkURL(href)
+                }
+                table.insert(novels, novel)
+            end
+        end)
+    end
+
+    return novels
 end
 
 --- Called when a user changes a setting and when the extension is being initialized.
