@@ -1,16 +1,16 @@
 {
 	"authors": [
 		{
-			"id": -821183208,
-			"name": "TechnoJo4",
-			"desc": "Worked on 247truyen, CommonCSS, Madara, WWVolare, url",
+			"id": 2194586,
+			"name": "GPPA",
+			"desc": "Worked on Novel Zlood, Pen and Paper Translations, Yuki Kitsuneko, novelZloodLib, yukikitsunekoLib",
 			"imageURL": "",
 			"website": ""
 		},
 		{
-			"id": 2194586,
-			"name": "GPPA",
-			"desc": "Worked on Novel Zlood, Yuki Kitsuneko, novelZloodLib, yukikitsunekoLib",
+			"id": -821183208,
+			"name": "TechnoJo4",
+			"desc": "Worked on 247truyen, CommonCSS, Madara, WWVolare, url",
 			"imageURL": "",
 			"website": ""
 		},
@@ -138,6 +138,17 @@
 			"ver": "0.0.96",
 			"libVer": "1.0.0",
 			"md5": "0277118a57b1eddf52c9d99aa3c15fc753a259b15e22b894cd9da874dc07fee4",
+			"type": "LuaScript"
+		},
+		{
+			"id": 20260131,
+			"name": "Pen and Paper Translations",
+			"fileName": "PenAndPaperTranslations",
+			"imageURL": "",
+			"lang": "en",
+			"ver": "0.0.125",
+			"libVer": "1.0.0",
+			"md5": "f36e06d21d99e47767e4c03bfc48732c56d755c21be33dcc6a928525fbf0c639",
 			"type": "LuaScript"
 		}
 	],
