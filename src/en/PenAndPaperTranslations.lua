@@ -1,4 +1,4 @@
--- {"id":20260131,"ver":"0.0.125","libVer":"1.0.0","author":"GPPA"}
+-- {"id":20260131,"ver":"0.0.130","libVer":"1.0.0","author":"GPPA"}
 --- Identification number of the extension.
 --- Should be unique. Should be consistent in all references.
 ---
@@ -27,7 +27,7 @@ local baseURL = "https://penandpapertranslations.com/"
 --- Optional, Default is empty.
 ---
 --- @type string
-local imageURL = ""
+local imageURL = "https://i0.wp.com/penandpapertranslations.com/wp-content/uploads/2025/07/resized_pen_logo_512x512-1.png"
 
 --- Shosetsu tries to handle cloudflare protection if this is set to true.
 ---
@@ -62,7 +62,7 @@ local chapterType = ChapterType.HTML
 --- Optional, Default is 1.
 ---
 --- @type number
-local startIndex = 97
+local startIndex = 1
 
 --- Shrink the website url down. This is for space saving purposes.
 ---
@@ -150,7 +150,8 @@ local function getPassage(chapterURL)
     --- Chapter page, extract info from it.
     local document = GETDocument(url)
 
-    local title = document:selectFirst("div.wp-block-column-is-layout-flow div.wp-block-group-is-layout-constrained h2"):text() or ""
+    local title = document:selectFirst("div.wp-block-column-is-layout-flow div.wp-block-group-is-layout-constrained h2")
+        :text() or ""
 
     local doc = document:selectFirst("div.wp-block-post-content-is-layout-constrained")
 
@@ -248,10 +249,10 @@ local function search(data)
                 query = query:lower()
 
                 if title:find(query, 1, true) ~= nil then
-                    novel:setTitle(a:text() or "")
-                novel:setLink(shrinkURL(url))
+                    novel:setTitle(title)
+                    novel:setLink(shrinkURL(url))
 
-                table.insert(novels, novel)
+                    table.insert(novels, novel)
                 end
             end)
         end
