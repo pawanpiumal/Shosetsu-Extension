@@ -1,16 +1,16 @@
 {
 	"authors": [
 		{
-			"id": -821183208,
-			"name": "TechnoJo4",
-			"desc": "Worked on 247truyen, CommonCSS, Madara, WWVolare, url",
+			"id": 2194586,
+			"name": "GPPA",
+			"desc": "Worked on Novel Translation Hub, Novel Zlood, Pen and Paper Translations, Vampira MTL, Yuki Kitsuneko",
 			"imageURL": "",
 			"website": ""
 		},
 		{
-			"id": 2194586,
-			"name": "GPPA",
-			"desc": "Worked on Novel Zlood, Pen and Paper Translations, Vampira MTL, Yuki Kitsuneko",
+			"id": -821183208,
+			"name": "TechnoJo4",
+			"desc": "Worked on 247truyen, CommonCSS, Madara, WWVolare, url",
 			"imageURL": "",
 			"website": ""
 		},
@@ -148,6 +148,17 @@
 			"ver": "0.0.17",
 			"libVer": "1.0.0",
 			"md5": "fdf51b10cb3b325115cc2340c53a24410f104b083f8adc39d62a8deb24f74a9e",
+			"type": "LuaScript"
+		},
+		{
+			"id": 20260203,
+			"name": "Novel Translation Hub",
+			"fileName": "NovelTranslationHub",
+			"imageURL": "https://noveltranslationhub.com/wp-content/uploads/2023/12/picturetopeople.org-258e30f39152c491dd0d01e70cd16b1a800a801ddb45f78836.png",
+			"lang": "en",
+			"ver": "0.0.4",
+			"libVer": "1.0.0",
+			"md5": "8469566af88f442ce285318397fcf2aacf522aa4c8a5d7645291419597a62bc4",
 			"type": "LuaScript"
 		}
 	],
