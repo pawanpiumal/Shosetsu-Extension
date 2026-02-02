@@ -1,4 +1,4 @@
--- {"id":260127,"ver":"1.0.7","libVer":"1.0.0","author":"GPPA"}
+-- {"id":260127,"ver":"1.0.47","libVer":"1.0.0","author":"GPPA"}
 --- Identification number of the extension.
 --- Should be unique. Should be consistent in all references.
 ---
@@ -147,6 +147,20 @@ local function getPassage(chapterURL)
     return pageOfElem(content, true, "")
 end
 
+local json = Require("dkjson")
+local encode = Require("url").encode
+
+local function split(str, delimiter)
+    local parts = {}
+    str = str .. delimiter -- add delimiter at end to simplify logic
+    for part in str:gmatch("(.-)" .. delimiter:gsub("%W", "%%%0")) do
+        if part ~= "" then
+            table.insert(parts, part)
+        end
+    end
+    return parts
+end
+
 --- Load info on a novel.
 ---
 --- Required.
@@ -174,12 +188,13 @@ local function parseNovel(novelURL, loadChapters)
     -- Chapters
     if loadChapters and content then
 
-        -- select all paragraph elements and guard nil anchors
-        -- div.col-12.col-md-6.mt-3.mt-md-0 h6
+        local start = 1
+        local chapters = {}
+
         local chapterList = content:select("a")
         local chapterOrder = 1
 
-        local novelList = AsList(mapNotNil(chapterList, function(v)
+        chapters = AsList(mapNotNil(chapterList, function(v)
             local a = v:selectFirst("a")
 
             local href = a:attr("href") or ""
@@ -194,11 +209,43 @@ local function parseNovel(novelURL, loadChapters)
             }
         end))
 
-        -- Only works for previous versions that do not have chapters loaded via script
-        -- script uses something like this to load the chapters
-        -- "https://yukikitsuneko.blogspot.com/feeds/posts/default/-/Fixing%20a%20Gals%20Bike?alt=json-in-script&max-results=500&callback=processTocFeed"
+        -- local title = doc:selectFirst("div.post-title h2"):text()
+        local title = doc:selectFirst("title"):text()
+        title = split(title, " ~ ")[1]
+        title = encode(title)
 
-        info:setChapters(novelList)
+        -- info:setTitle(#chapters)
+
+        if #chapters == 0 then
+            repeat
+                local formatURL = "https://yukikitsuneko.blogspot.com/feeds/posts/default/-/" .. title ..
+                                      "?alt=json-in-script&max-results=100&start-index=" .. start
+                local document = GETDocument(formatURL)
+
+                start = start + 101
+
+                -- for JSONP - ?alt=json-in-script
+                document = document:selectFirst("body"):text():gsub("gdata.io.handleScriptLoaded%(", "")
+                document = document:sub(1, -3) -- remove trailing )
+
+                local jsonData = json.decode(document)
+
+                if jsonData.feed.entry then
+                    for _, v in ipairs(jsonData.feed.entry) do
+                        table.insert(chapters, NovelChapter {
+                            title = v.title["$t"] or "",
+                            link = shrinkURL(v.link[5].href) or "",
+                            release = v.updated["$t"] or "",
+                            order = 1
+                        })
+                    end
+                end
+
+                -- info:setTitle("After " .. formatURL .. " got " .. #chapters .. " chapters.")
+            until #chapters == 0 or #chapters % 100 ~= 0
+        end
+
+        info:setChapters(chapters)
     end
 
     return info
@@ -211,15 +258,22 @@ end
 --- @param data table @of applied filter values [QUERY] is the search query, may be empty.
 --- @return Novel[] | Array
 local function search(data)
-    --- Not required if search is not incrementing.
-    --- @type int
-    local page = data[PAGE]
-
-    --- Get the user text query to pass through.
     --- @type string
     local query = data[QUERY]
 
-    return {}
+    local doc = GETDocument(query)
+
+    local content = doc:selectFirst("div.post-body.entry-content.float-container")
+
+    local h = content and content:selectFirst("h1")
+
+    local info = {Novel {
+        title = h and h:text() or "",
+        imageURL = content:selectFirst("img"):attr("src") or "",
+        link = shrinkURL(query)
+    }}
+
+    return info
 end
 
 --- Called when a user changes a setting and when the extension is being initialized.
