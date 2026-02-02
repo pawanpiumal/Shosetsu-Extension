@@ -12,6 +12,7 @@ https://github.com/pawanpiumal/Shosetsu-Extension/raw/main
 
 | Name    | Link |
 | -------- | ------- |
-| Novel Zloodnn  | [novel-zlood.github.io](https://novel-zlood.github.io)   |
+| Novel Zlood  | [novel-zlood.github.io](https://novel-zlood.github.io)   |
 | Yuki Kitsuneko | [yukikitsuneko.blogspot.com](https://yukikitsuneko.blogspot.com)     |
 | Vampira MTL    | [vampiramtl.com](https://www.vampiramtl.com)    |
+| Pen and Paper Translations | [penandpapertranslations.com](https://penandpapertranslations.com)
