@@ -1,4 +1,4 @@
--- {"id":260127,"ver":"1.0.47","libVer":"1.0.0","author":"GPPA"}
+-- {"id":260127,"ver":"1.0.55","libVer":"1.0.0","author":"GPPA"}
 --- Identification number of the extension.
 --- Should be unique. Should be consistent in all references.
 ---
@@ -222,8 +222,6 @@ local function parseNovel(novelURL, loadChapters)
                                       "?alt=json-in-script&max-results=100&start-index=" .. start
                 local document = GETDocument(formatURL)
 
-                start = start + 101
-
                 -- for JSONP - ?alt=json-in-script
                 document = document:selectFirst("body"):text():gsub("gdata.io.handleScriptLoaded%(", "")
                 document = document:sub(1, -3) -- remove trailing )
@@ -241,8 +239,10 @@ local function parseNovel(novelURL, loadChapters)
                     end
                 end
 
-                -- info:setTitle("After " .. formatURL .. " got " .. #chapters .. " chapters.")
-            until #chapters == 0 or #chapters % 100 ~= 0
+                start = #chapters + 1
+                -- info:setTitle("After " .. jsonData.feed["openSearch$totalResults"]["$t"] .. " got " .. #chapters ..
+                --                   " chapters.")
+            until #chapters == 0 or tonumber(jsonData.feed["openSearch$totalResults"]["$t"]) <= #chapters
         end
 
         info:setChapters(chapters)

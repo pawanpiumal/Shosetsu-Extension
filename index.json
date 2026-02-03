@@ -123,9 +123,9 @@
 			"fileName": "YukiKitsuneko",
 			"imageURL": "https://blogger.googleusercontent.com/img/a/AVvXsEjmtcoZ_MDWp2CpXJZSAaSXOqqL-E54sJ4nw9AxmSv3yprfwVvxipfp41x8g2Q96eCorBx8S4vQZOZdggz_HE7k2G8MlfBFlYnRtNioP_CI7o2TbSfKIa9IVxY2xMDo1MVlUJixzeBWr__ZWgNQsoDc6Qmp0kLeTYlmZ4iHHT0yazeJL4aOsDNkUxQUMm7P=s640",
 			"lang": "en",
-			"ver": "1.0.47",
+			"ver": "1.0.55",
 			"libVer": "1.0.0",
-			"md5": "69aef298b114db7d40521585f4ccfb08b97c2b76a5db0ec49435a692c7d81093",
+			"md5": "b23bf1ad93bb491830a9a52a123e5a2d74795ae759d5825eb12aaedac07bd2a7",
 			"type": "LuaScript"
 		},
 		{
@@ -167,9 +167,9 @@
 			"fileName": "Test",
 			"imageURL": "https://d8iqbmvu05s9c.cloudfront.net/aiqpo1f3jbzpd0silc6b0qqot9ao",
 			"lang": "en",
-			"ver": "0.0.33",
+			"ver": "0.0.34",
 			"libVer": "1.0.0",
-			"md5": "27f48eb6f3d549ed5f27db1b3e91f7826474203a67aec44582956d5d25db1595",
+			"md5": "b729745502403daa611b8f50895e892217a6b90ea6bca44ad55bcaba59eef0a1",
 			"type": "LuaScript"
 		}
 	],
