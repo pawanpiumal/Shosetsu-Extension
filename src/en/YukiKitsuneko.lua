@@ -1,4 +1,4 @@
--- {"id":260127,"ver":"1.0.55","libVer":"1.0.0","author":"GPPA"}
+-- {"id":260127,"ver":"1.0.91","libVer":"1.0.0","author":"GPPA"}
 --- Identification number of the extension.
 --- Should be unique. Should be consistent in all references.
 ---
@@ -49,7 +49,7 @@ local hasSearch = true
 --- Optional, Default is true.
 ---
 --- @type boolean
-local isSearchIncrementing = false
+local isSearchIncrementing = true
 
 --- ChapterType provided by the extension.
 ---
@@ -65,6 +65,34 @@ local chapterType = ChapterType.HTML
 --- @type number
 local startIndex = 1
 
+local json = Require("dkjson")
+local unhtml = Require("unhtml")
+
+local SELECT_STATUS_ID = 2
+local SELECT_STATUS_TEXT = {"All Status", "Ongoing", "Completed", "One Shot"}
+
+local SELECT_GENRE_ID = 3
+local SELECT_GENRE_TEXT = {"All Types", "Action", "Adult", "Adventure", "Age Gap", "BSS", "Baseball", "Battle/Action",
+                           "Beautiful Girls", "Bereavement", "Bickering Couple", "CHF", "Childhood Friend",
+                           "Childhood Friends", "Cohabitation", "College Students", "Comedy", "Coming of Age",
+                           "Diabetic", "Doting Love", "Doting Love Interest", "Drama", "Ecchi", "Erotica", "Fantasy",
+                           "First Love", "Flirty", "Friendship", "Gal", "Harem", "High School Students", "Isekai",
+                           "Kuudere", "Lovey-Dovey Romance", "Magic", "Mecha", "Monsters", "Music", "Mystery",
+                           "Netorare", "Netori", "Office Life", "Office Love", "Otome", "Problem Solving",
+                           "Psychological", "Pure Diabetes", "Pure Love", "R18", "Reincarnation", "RomCom", "Romance",
+                           "School Life", "School Love", "Scientists", "Seinen", "Serves You Right", "Sexual Violence",
+                           "Shoujo", "Shounen", "Slice of Life", "Strongest MC", "Supernatural", "Territory Building",
+                           "Time Leap", "Time Travel", "Tokusatsu", "Tragedy", "Tragic Love", "Tsundere",
+                           "University Student", "Villainess", "Work", "Working Adults", "Yandere"}
+
+--- Filters to display via the filter fab in Shosetsu.
+---
+--- Optional, Default is none.
+---
+--- @type Filter[] | Array
+local searchFilters = {DropdownFilter(SELECT_STATUS_ID, "Status", SELECT_STATUS_TEXT),
+                       DropdownFilter(SELECT_GENRE_ID, "Genre", SELECT_GENRE_TEXT)}
+
 --- Shrink the website url down. This is for space saving purposes.
 ---
 --- Required.
@@ -75,47 +103,6 @@ local function shrinkURL(url)
     return url:gsub("https://yukikitsuneko.blogspot.com/", "")
 end
 
---- Listings that users can navigate in Shosetsu.
----
---- Required, 1 value at minimum.
----
---- @type Listing[] | Array
-local listings = {Listing("Something without any input", false, function()
-    -- Previous documentation, except no data or appending.
-    local url = baseURL
-
-    local doc = GETDocument(url)
-
-    return mapNotNil(doc:select("div#LinkList1 div.widget-content ul li"), function(v)
-        local a = v:selectFirst("a")
-        if not a then
-            return nil
-        end
-
-        local href = a:attr("href") or ""
-        if href == "#" or href == "" then
-            return nil
-        end
-
-        if href == "https://" or href == "#bt-home" or href == "https://yukikitsuneko.blogspot.com/p/dmca.html" then
-            return nil
-        end
-
-        local tit = a:text() or a:attr("title") or ""
-        -- trim whitespace
-        tit = tit:gsub("^%s*%-*%s*(.-)%s*$", "%1")
-        if tit == "" then
-            tit = href
-        end
-
-        local novel = Novel()
-        novel:setLink(shrinkURL(href))
-
-        novel:setTitle(tit)
-        return novel
-    end)
-end)}
-
 --- Expand a given URL.
 ---
 --- Required.
@@ -125,6 +112,93 @@ end)}
 local function expandURL(url)
     return baseURL .. url
 end
+
+local function extractNovelDataFromScript(script)
+    local scriptText = script:html() or ""
+    if scriptText ~= "" and scriptText:find("novelData") then
+        -- Match: const novelData = [...]
+        local jsonStr = scriptText:match("const%s+novelData%s*=%s*(%b[])")
+
+        if jsonStr then
+            -- Try to decode JSON
+            local success, data = pcall(function()
+                return json.decode(jsonStr)
+            end)
+
+            if success and data then
+                return data
+            end
+        end
+    end
+
+    return nil
+end
+
+local function genreInList(list, genre)
+    for _, v in ipairs(list) do
+        if v == genre then
+            return true
+        end
+    end
+    return false
+end
+
+local function parseListing(data, search)
+    local url = "https://yukikitsuneko.blogspot.com/p/series-list.html"
+
+    local doc = GETDocument(url)
+
+    doc = doc:selectFirst("div.post div.post-body script")
+
+    local js = extractNovelDataFromScript(doc)
+
+    local novels = {}
+
+    for _, v in ipairs(js) do
+        local tit = (v.title) or ""
+        local href = expandURL(v.link or "")
+
+        local novel = Novel()
+        novel:setLink(shrinkURL(href))
+        novel:setTitle(unhtml.convertHTMLentities(tit))
+        novel:setImageURL(v.imageUrl or "")
+
+        local addOrNot = true
+
+        if data[SELECT_GENRE_ID] and data[SELECT_GENRE_ID] ~= 0 and v.genre then
+            if not genreInList(v.genre, SELECT_GENRE_TEXT[data[SELECT_GENRE_ID] + 1]) then
+                addOrNot = false
+            end
+        end
+
+        if data[SELECT_STATUS_ID] and data[SELECT_STATUS_ID] ~= 0 and v.status then
+            if SELECT_STATUS_TEXT[data[SELECT_STATUS_ID] + 1] ~= v.status then
+                addOrNot = false
+            end
+        end
+
+        if search and v.title and v.title:lower():find(search, 1, true) == nil then
+            addOrNot = false
+        end
+
+        if addOrNot then
+            table.insert(novels, novel)
+        end
+    end
+
+    return novels
+end
+
+--- Listings that users can navigate in Shosetsu.
+---
+--- Required, 1 value at minimum.
+---
+--- @type Listing[] | Array
+local listings = {Listing("Something without any input", false, function(data)
+    -- Previous documentation, except no data or appending.
+    return parseListing(data)
+
+end)}
 
 --- Get a chapter passage based on its chapterURL.
 ---
@@ -147,7 +221,6 @@ local function getPassage(chapterURL)
     return pageOfElem(content, true, "")
 end
 
-local json = Require("dkjson")
 local encode = Require("url").encode
 
 local function split(str, delimiter)
@@ -233,7 +306,7 @@ local function parseNovel(novelURL, loadChapters)
                         table.insert(chapters, NovelChapter {
                             title = v.title["$t"] or "",
                             link = shrinkURL(v.link[5].href) or "",
-                            release = v.updated["$t"] or "",
+                            release = v.published["$t"] or "",
                             order = 1
                         })
                     end
@@ -259,21 +332,26 @@ end
 --- @return Novel[] | Array
 local function search(data)
     --- @type string
-    local query = data[QUERY]
+    local query = data[QUERY]:lower()
 
-    local doc = GETDocument(query)
+    if query and query:match("^https?://") then
+        local doc = GETDocument(query)
 
-    local content = doc:selectFirst("div.post-body.entry-content.float-container")
+        local content = doc:selectFirst("div.post-body.entry-content.float-container")
 
-    local h = content and content:selectFirst("h1")
+        local h = content and content:selectFirst("h1")
 
-    local info = {Novel {
-        title = h and h:text() or "",
-        imageURL = content:selectFirst("img"):attr("src") or "",
-        link = shrinkURL(query)
-    }}
+        local info = {Novel {
+            title = h and h:text() or "",
+            imageURL = content:selectFirst("img"):attr("src") or "",
+            link = shrinkURL(query)
+        }}
 
-    return info
+        return info
+    end
+
+    return parseListing(data, query)
+
 end
 
 --- Called when a user changes a setting and when the extension is being initialized.
@@ -305,7 +383,7 @@ return {
     hasSearch = hasSearch,
     isSearchIncrementing = isSearchIncrementing,
     searchFilters = searchFilters,
-    settings = settingsModel,
+    settings = {},
     chapterType = chapterType,
     startIndex = startIndex,
 
